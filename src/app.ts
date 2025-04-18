@@ -4,7 +4,7 @@ import notFound from './app/middlewares/notFound';
 import globalErrorHandler from './app/middlewares/globalErrorhandler';
 import { CustomerRoutes } from './app/modules/customer/customer.routes';
 import { BikeRoutes } from './app/modules/bike/bike.routes';
-import { RecordRoutes } from './app/modules/record/record.routes';
+import { ServiceRoutes } from './app/modules/service/service.routes';
 
 const app: Application = express();
 
@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // all routes here
 app.use('/api/customers', CustomerRoutes);
-app.use('/api/customers', BikeRoutes);
-app.use('/api/customers', RecordRoutes);
+app.use('/api/bikes', BikeRoutes);
+app.use('/api/services', ServiceRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send(`

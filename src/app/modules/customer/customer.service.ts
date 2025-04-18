@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 // get all customers from database
 const getAllCustomerFromDB = async () => {
   const result = await prisma.customer.findMany();
+
   return result;
 };
 
@@ -14,6 +15,7 @@ const getSingleCustomerFromDB = async (id: string) => {
       customerId: id,
     },
   });
+
   return result;
 };
 
@@ -22,6 +24,7 @@ const createCustomerIntoDB = async (data: any) => {
   const result = await prisma.customer.create({
     data,
   });
+
   return result;
 };
 
@@ -33,6 +36,7 @@ const updateCustomerIntoDB = async (id: string, payload: any) => {
     },
     data: payload,
   });
+  
   return result;
 };
 

@@ -4,12 +4,14 @@ const prisma = new PrismaClient();
 // Get all bikes from the database
 const getAllBikeFromDB = async () => {
   const result = await prisma.bike.findMany();
+
   return result;
 };
 
 // create bike into database
 const createBikeIntoDB = async (data: any) => {
   const result = await prisma.bike.create({ data });
+
   return result;
 };
 

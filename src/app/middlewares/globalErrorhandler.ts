@@ -19,11 +19,15 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // default error here
   else if (err instanceof Error) {
     message = err.message;
+  } else if (err instanceof SyntaxError) {
+    statusCode = 400;
+    message = 'Invalid JSON payload passed.';
   }
 
   //ultimate return
   res.status(statusCode).json({
     success: false,
+    status: statusCode,
     message,
     stack: config.node_env === 'development' ? err?.stack : null,
   });

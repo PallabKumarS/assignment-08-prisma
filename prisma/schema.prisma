@@ -1,6 +1,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./src/generated/client"
 }
 
 datasource db {
@@ -8,7 +9,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Define your own models and their fields
 
 enum ServiceStatus {
   pending
@@ -51,5 +51,5 @@ model ServiceRecord {
 
   bike           Bike           @relation(fields: [bikeId], references: [bikeId])
 
-  @@map("records")
+  @@map("services")
 }

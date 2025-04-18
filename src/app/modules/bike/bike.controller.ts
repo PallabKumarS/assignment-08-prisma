@@ -2,13 +2,14 @@ import { Request, Response } from 'express';
 import { BikeService } from './bike.service';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
 // get all bike
 const getAllBike = catchAsync(async (req: Request, res: Response) => {
   const data = await BikeService.getAllBikeFromDB();
 
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: httpStatus.OK,
     success: true,
     message: 'Bikes retrieved successfully',
     data,
@@ -18,9 +19,11 @@ const getAllBike = catchAsync(async (req: Request, res: Response) => {
 // create bike
 const createBike = catchAsync(async (req: Request, res: Response) => {
   const data = req.body;
+
   const result = await BikeService.createBikeIntoDB(data);
+
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: httpStatus.CREATED,
     success: true,
     message: 'Bike created successfully',
     data: result,
@@ -30,9 +33,11 @@ const createBike = catchAsync(async (req: Request, res: Response) => {
 // git single bike
 const getSingleBike = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+
   const data = await BikeService.getSingleBikeFromDB(id);
+
   sendResponse(res, {
-    statusCode: 200,
+    statusCode: httpStatus.OK,
     success: true,
     message: 'Bike retrieved successfully',
     data,
