@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import httpStatus from 'http-status';
 
 import { PrismaClient } from '../../../../prisma/generated/client';
+import { AppError } from '../../errors/AppError';
 
 const prisma = new PrismaClient();
 
@@ -26,6 +28,10 @@ const getSingleBikeFromDB = async (id: string): Promise<any> => {
       bikeId: id,
     },
   });
+
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Bike not found');
+  }
 
   return result;
 };

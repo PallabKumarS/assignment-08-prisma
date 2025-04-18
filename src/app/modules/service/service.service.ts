@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import httpStatus from 'http-status';
 
 import { PrismaClient } from '../../../../prisma/generated/client';
+import { AppError } from '../../errors/AppError';
 const prisma = new PrismaClient();
 
 // Get all services from the database
@@ -28,11 +30,25 @@ const getSingleServiceFromDB = async (id: string): Promise<any> => {
     },
   });
 
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Service record not found');
+  }
+
   return result;
 };
 
 // update service into database
 const updateServiceInDB = async (id: string, payload: any): Promise<any> => {
+  const isExist = await prisma.serviceRecord.findUnique({
+    where: {
+      serviceId: id,
+    },
+  });
+
+  if (!isExist) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Service record not found');
+  }
+
   const result = await prisma.serviceRecord.update({
     where: {
       serviceId: id,
@@ -49,7 +65,7 @@ const updateServiceInDB = async (id: string, payload: any): Promise<any> => {
 };
 
 // get all services from database
-const getDueServicesFromDB = async () => {
+const getDueServicesFromDB = async (): Promise<any> => {
   const result = await prisma.serviceRecord.findMany({
     where: {
       AND: [
