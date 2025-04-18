@@ -1,6 +1,5 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { userRoutes } from './app/modules/user/user.route';
 import notFound from './app/middlewares/notFound';
 import globalErrorHandler from './app/middlewares/globalErrorhandler';
 
@@ -16,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // all routes here
-app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/users');
 
 app.get('/', (req: Request, res: Response) => {
   res.send(`
