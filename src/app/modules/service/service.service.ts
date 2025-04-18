@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// import { PrismaClient } from '@prisma/client';
-
-import { PrismaClient } from "../../../generated/client";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
+import { PrismaClient } from '../../../../prisma/generated/client';
 const prisma = new PrismaClient();
 
 // Get all services from the database
