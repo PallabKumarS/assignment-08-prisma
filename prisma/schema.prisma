@@ -24,6 +24,8 @@ model Customer {
   createdAt  DateTime @default(now())
 
   bikes      Bike[]
+
+  @@map("customers")
 }
 
 model Bike {
@@ -35,6 +37,8 @@ model Bike {
 
   customer   Customer   @relation(fields: [customerId], references: [customerId])
   services   ServiceRecord[]
+
+  @@map("bikes")
 }
 
 model ServiceRecord {
@@ -46,4 +50,6 @@ model ServiceRecord {
   status         ServiceStatus
 
   bike           Bike           @relation(fields: [bikeId], references: [bikeId])
+
+  @@map("records")
 }

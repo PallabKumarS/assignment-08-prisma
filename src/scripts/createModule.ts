@@ -10,10 +10,7 @@ const createModule = (moduleName: string): void => {
   const files = [
     `${moduleName}.routes.ts`,
     `${moduleName}.controller.ts`,
-    `${moduleName}.model.ts`,
     `${moduleName}.service.ts`,
-    `${moduleName}.interface.ts`,
-    `${moduleName}.validation.ts`,
   ];
 
   // Create the module directory
@@ -30,7 +27,7 @@ const createModule = (moduleName: string): void => {
     if (!fs.existsSync(filePath)) {
       let content = '';
 
-      // route here
+      // route
       if (file.endsWith('.routes.ts')) {
         content = `import { Router } from "express";
 import { ${capitalize(moduleName)}Controller } from "./${moduleName}.controller";
@@ -42,7 +39,7 @@ router.get("/", ${capitalize(moduleName)}Controller.getAll${capitalize(moduleNam
 
 export const ${capitalize(moduleName)}Routes = router;`;
 
-        // controller here
+        // controller
       } else if (file.endsWith('.controller.ts')) {
         content = `import { Request, Response } from "express";
 import { ${capitalize(moduleName)}Service } from "./${moduleName}.service";
@@ -61,70 +58,18 @@ const getAll${capitalize(moduleName)} = catchAsync(async (req: Request, res: Res
 
 export const ${capitalize(moduleName)}Controller = { getAll${capitalize(moduleName)} };`;
 
-        // service here
+        // service
       } else if (file.endsWith('.service.ts')) {
-        content = `import ${capitalize(moduleName)}Model from "./${moduleName}.model";
+        content = `import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const getAll${capitalize(moduleName)}FromDB = async () => {
-  const result = await ${capitalize(moduleName)}Model.find({});
+  // Replace 'yourModel' with actual Prisma model name
+  const result = await prisma.${moduleName}.findMany();
   return result;
 };
 
 export const ${capitalize(moduleName)}Service = { getAll${capitalize(moduleName)}FromDB };`;
-
-        // interface here
-      } else if (file.endsWith('.interface.ts')) {
-        content = `import { Model } from "mongoose";
-
-export type T${capitalize(moduleName)} = {
-  name: string;
-  id?: string;
-};
-
-export interface I${capitalize(moduleName)} extends Model<T${capitalize(moduleName)}> {
-  is${capitalize(moduleName)}Exists(id: string): Promise<T${capitalize(moduleName)} | null>;
-}`;
-
-        // validation here
-      } else if (file.endsWith('.validation.ts')) {
-        content = `import { z } from "zod";
-
-const create${capitalize(moduleName)}Validation = z.object({
-  body: z.object({
-    name: z.string({
-      required_error: "Name is required",
-    }),
-  }),
-});
-
-const update${capitalize(moduleName)}Validation = create${capitalize(moduleName)}Validation.partial();
-
-export const ${capitalize(moduleName)}Validation = {
-  create${capitalize(moduleName)}Validation,
-  update${capitalize(moduleName)}Validation,
-};`;
-
-        // model here
-      } else if (file.endsWith('.model.ts')) {
-        content = `import { Schema, model, Document } from "mongoose";
-import { T${capitalize(moduleName)},I${capitalize(moduleName)} } from "./${moduleName}.interface";
-
-const ${moduleName}Schema = new Schema<T${capitalize(moduleName)},I${capitalize(moduleName)}>(
-  {
-    name: { type: String, required: true },
-  },
-  {
-    timestamps: true,
-  }
-);
-
-${moduleName}Schema.statics.is${capitalize(moduleName)}Exists = async function (id: string) {
-  return await ${capitalize(moduleName)}Model.findOne({ id });
-};
-
-const ${capitalize(moduleName)}Model = model<T${capitalize(moduleName)},I${capitalize(moduleName)}>("${capitalize(moduleName)}s", ${moduleName}Schema);
-
-export default ${capitalize(moduleName)}Model;`;
       }
 
       fs.writeFileSync(filePath, content, 'utf-8');
