@@ -182,7 +182,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:@temppass1@localhost:5432/bikeStoreDB?schema=public"
+        "value": "postgresql://pks:drJp0RAGnQgblPFKRpusKorN2r7cwGuk@dpg-d015miadbo4c73dsoqpg-a.singapore-postgres.render.com/bike_store_gp7h"
       }
     }
   },
