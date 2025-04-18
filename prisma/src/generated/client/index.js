@@ -169,7 +169,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../..",
@@ -179,17 +179,16 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://postgres:@temppass1@localhost:5432/bikeStoreDB?schema=public"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// Define your own models and their fields\n\nenum ServiceStatus {\n  pending\n  in_progress\n  done\n}\n\nmodel Customer {\n  customerId String   @id @default(uuid())\n  name       String\n  email      String   @unique\n  phone      String\n  createdAt  DateTime @default(now())\n\n  bikes Bike[]\n\n  @@map(\"customers\")\n}\n\nmodel Bike {\n  bikeId     String @id @default(uuid())\n  brand      String\n  model      String\n  year       Int\n  customerId String\n\n  customer Customer        @relation(fields: [customerId], references: [customerId])\n  services ServiceRecord[]\n\n  @@map(\"bikes\")\n}\n\nmodel ServiceRecord {\n  serviceId      String        @id @default(uuid())\n  bikeId         String\n  serviceDate    DateTime\n  completionDate DateTime?\n  description    String\n  status         ServiceStatus\n\n  bike Bike @relation(fields: [bikeId], references: [bikeId])\n\n  @@map(\"services\")\n}\n",
-  "inlineSchemaHash": "12ccc0fb516ceda73b8d8027fdfb99a76469f551eb93511dddaaad9b53b7f0cd",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./src/generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum ServiceStatus {\n  pending\n  in_progress\n  done\n}\n\nmodel Customer {\n  customerId String   @id @default(uuid())\n  name       String\n  email      String   @unique\n  phone      String\n  createdAt  DateTime @default(now())\n\n  bikes Bike[]\n\n  @@map(\"customers\")\n}\n\nmodel Bike {\n  bikeId     String @id @default(uuid())\n  brand      String\n  model      String\n  year       Int\n  customerId String\n\n  customer Customer        @relation(fields: [customerId], references: [customerId])\n  services ServiceRecord[]\n\n  @@map(\"bikes\")\n}\n\nmodel ServiceRecord {\n  serviceId      String        @id @default(uuid())\n  bikeId         String\n  serviceDate    DateTime\n  completionDate DateTime?\n  description    String\n  status         ServiceStatus\n\n  bike Bike @relation(fields: [bikeId], references: [bikeId])\n\n  @@map(\"services\")\n}\n",
+  "inlineSchemaHash": "b09cbbdf1f09ca9de0f0f57c287124a7b52c7896e909f3cf1a09a5a31b8751f7",
   "copyEngine": true
 }
 

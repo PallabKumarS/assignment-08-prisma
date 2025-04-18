@@ -8,8 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Define your own models and their fields
-
 enum ServiceStatus {
   pending
   in_progress

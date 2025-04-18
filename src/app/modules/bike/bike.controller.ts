@@ -11,7 +11,7 @@ const getAllBike = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Bikes retrieved successfully',
+    message: 'Bikes fetched successfully',
     data,
   });
 });
@@ -25,7 +25,7 @@ const createBike = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: 'Bike created successfully',
+    message: 'Bike added successfully',
     data: result,
   });
 });
@@ -39,7 +39,7 @@ const getSingleBike = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Bike retrieved successfully',
+    message: 'Bike fetched successfully',
     data,
   });
 });

@@ -12,6 +12,6 @@ router.post('/', ServiceController.createService);
 
 router.get('/:id', ServiceController.getSingleService);
 
-router.patch('/:id/complete', ServiceController.updateService);
+router.put('/:id/complete', ServiceController.updateService);
 
 export const ServiceRoutes = router;

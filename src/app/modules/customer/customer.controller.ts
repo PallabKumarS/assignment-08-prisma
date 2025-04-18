@@ -10,7 +10,7 @@ const getAllCustomer = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Customers retrieved successfully',
+    message: 'Customers fetched successfully',
     data,
   });
 });
@@ -35,7 +35,7 @@ const getSingleCustomer = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Customer retrieved successfully',
+    message: 'Customer fetched successfully',
     data: result,
   });
 });
