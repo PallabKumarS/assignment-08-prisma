@@ -18,6 +18,7 @@
     "typescript": "^5"
   },
   "scripts": {
+    "generate": "bun x prisma generate",
     "migrate": "bun x prisma migrate dev",
     "build": "bun run tsc",
     "dev": "tsx watch src/server.ts",

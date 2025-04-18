@@ -1,15 +1,18 @@
-import { PrismaClient } from '@prisma/client';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+// import { PrismaClient } from '@prisma/client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PrismaClient } from '../../../generated/client';
 const prisma = new PrismaClient();
 
 // get all customers from database
-const getAllCustomerFromDB = async () => {
+const getAllCustomerFromDB = async (): Promise<any> => {
   const result = await prisma.customer.findMany();
 
   return result;
 };
 
 // get single customer from db
-const getSingleCustomerFromDB = async (id: string) => {
+const getSingleCustomerFromDB = async (id: string): Promise<any> => {
   const result = await prisma.customer.findUnique({
     where: {
       customerId: id,
@@ -20,7 +23,7 @@ const getSingleCustomerFromDB = async (id: string) => {
 };
 
 // create customer into db
-const createCustomerIntoDB = async (data: any) => {
+const createCustomerIntoDB = async (data: any): Promise<any> => {
   const result = await prisma.customer.create({
     data,
   });
@@ -29,19 +32,19 @@ const createCustomerIntoDB = async (data: any) => {
 };
 
 // update customer into db
-const updateCustomerIntoDB = async (id: string, payload: any) => {
+const updateCustomerIntoDB = async (id: string, payload: any): Promise<any> => {
   const result = await prisma.customer.update({
     where: {
       customerId: id,
     },
     data: payload,
   });
-  
+
   return result;
 };
 
 // delete customer from db
-const deleteCustomerFromDB = async (id: string) => {
+const deleteCustomerFromDB = async (id: string): Promise<any> => {
   console.log(id);
 
   const result = await prisma.customer.delete({

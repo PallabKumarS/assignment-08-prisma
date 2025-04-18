@@ -1,15 +1,20 @@
-import { PrismaClient } from '@prisma/client';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+// import { PrismaClient } from '@prisma/client';
+
+import { PrismaClient } from "../../../generated/client";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const prisma = new PrismaClient();
 
 // Get all services from the database
-const getAllServiceFromDB = async () => {
+const getAllServiceFromDB = async (): Promise<any> => {
   const result = await prisma.serviceRecord.findMany();
 
   return result;
 };
 
 // create service into  database
-const createServiceInDB = async (data: any) => {
+const createServiceInDB = async (data: any): Promise<any> => {
   const result = await prisma.serviceRecord.create({
     data,
   });
@@ -18,7 +23,7 @@ const createServiceInDB = async (data: any) => {
 };
 
 // get single service from database
-const getSingleServiceFromDB = async (id: string) => {
+const getSingleServiceFromDB = async (id: string): Promise<any> => {
   const result = await prisma.serviceRecord.findUnique({
     where: {
       serviceId: id,
@@ -29,7 +34,7 @@ const getSingleServiceFromDB = async (id: string) => {
 };
 
 // update service into database
-const updateServiceInDB = async (id: string, payload: any) => {
+const updateServiceInDB = async (id: string, payload: any): Promise<any> => {
   const result = await prisma.serviceRecord.update({
     where: {
       serviceId: id,
