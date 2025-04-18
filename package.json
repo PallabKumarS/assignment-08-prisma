@@ -1,0 +1,38 @@
+{
+  "name": "ph-healthcare-server",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.30.1",
+    "@typescript-eslint/parser": "^8.30.1",
+    "eslint": "^9.24.0",
+    "prettier": "^3.5.3",
+    "prisma": "^6.6.0",
+    "tsx": "^4.19.3",
+    "typescript-eslint": "^8.30.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "migrate": "bun x prisma migrate dev",
+    "build": "bun run tsc",
+    "dev": "tsx watch src/server.ts",
+    "prod": "node ./dist/server.js",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --fix",
+    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+    "prettier:fix": "bun run prettier --write src"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "http-status": "^2.1.0"
+  }
+}
